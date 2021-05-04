@@ -7,7 +7,6 @@
         "php": ">=7.2.5",
         "ext-ctype": "*",
         "ext-iconv": "*",
-        "ext-sqlite3": "*",
         "ext-pdo_sqlite": "*",
         "composer/package-versions-deprecated": "1.11.99.1",
         "danaki/doctrine-enum-type-bundle": "^0.2.2",
