@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ProductRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -40,7 +41,7 @@ class Product
 
     public function __construct()
     {
-        $this->id = null;
+        $this->variants = new ArrayCollection();
     }
 
     public function getId(): ?int
