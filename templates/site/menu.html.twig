@@ -1,0 +1,68 @@
+{% extends 'site/_layout/master.html.twig' %}
+
+{% block content %}
+    <section class="container-fluid slogan-container border-top-brown">
+        <div class="row">
+            <div class="col">
+                <h3 class="container-title quote">"Mam się zabić czy zaparzyć kolejną kawę?"</h3>
+            </div>
+        </div>
+    </section>
+
+    {% for product_category in product_categories %}
+        <section class="container-fluid dessert-container">
+            <div class="row container-title">
+                <div class="col p-3">
+                    <h3>{{ product_category.name }}</h3>
+                </div>
+            </div>
+            <section class="row">
+                <div class="col menu-list">
+                    {% for product in product_category.products %}
+                        <figure>
+                            <img src="/uploads/{{ product.image }}" alt="Homemade cheesecake" />
+                            <figcaption>
+                                <p>{{ product.name }}</p>
+                                <p class="second-row">
+                                    <span>
+                                        {% for product_variant in product.variants %}
+                                            {{ product_variant.name }}
+
+                                            {% if not loop.last %}
+                                                /
+                                            {% endif %}
+                                        {% endfor %}
+                                    </span>
+                                    <span>
+                                        {% for product_variant in product.variants %}
+                                            {{ (product_variant.price / 100)|number_format(2, ',') }} zł
+
+                                            {% if not loop.last %}
+                                                /
+                                            {% endif %}
+                                        {% endfor %}
+                                    </span>
+                                </p>
+                                <div class="counter number">
+                                    <span class="minus">-</span>
+                                    <input type="text" value="1"/>
+                                    <span class="plus">+</span>
+                                </div>
+                                <div class="btn-container">
+                                    <button class="btn-primary">Dodaj do koszyka</button>
+                                </div>
+                            </figcaption>
+                        </figure>
+                    {% endfor %}
+                </div>
+
+                {% if loop.last %}
+                    <div class="row menu-footer">
+                        <p>Jeśli posiadasz konto na naszej stronie, możesz złożyć zamówienie onlinne i odebrać je w wybranej przez siebie godzinie!</p>
+                        <a href="#" class="btn btn-primary">ZŁÓŻ ZAMÓWIENIE! :)</a>
+                    </div>
+                {% endif %}
+            </section>
+        </section>
+    {% endfor %}
+{% endblock %}

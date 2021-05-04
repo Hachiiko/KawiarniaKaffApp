@@ -1,0 +1,33 @@
+{% extends 'site/_layout/master.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row contact-row-bg border-top-brown">
+            <article class="col-3 d-none d-md-block"></article>
+            <section class="col-12 col-md-6 text-center p-lg-5">
+                <h3 class="p-3">Skontaktuj się z nami!</h3>
+                <p>Jeśli masz jakieś pytania pytania dotyczące kawiarni lub chcesz podzielić się opinią z pobytu w
+                    kawiarni, prosimy o kontakt.</p>
+                <form action="mailto:kontakt@kaff.pl" method="post" _lpchecked="1">
+                    <div class="form-group mt-5">
+                        <label for="exampleInputEmail1">Twój adress E-mail</label>
+                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">Twoje dane nie zostaną nigdy opublikowane</small>
+                    </div>
+                    <div class="form-group mt-5">
+                        <label for="exampleFormControlTextarea1">Wpisz tutaj swoją wiadomość</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                    </div>
+                    <div class="form-check mt-5 text-start">
+                        <label class="form-check-label" for="exampleCheck1">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            Zgadzam się na przesłanie mojego zgłoszenia. Rodo&amp;etc.
+                        </label>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Wyślij</button>
+                </form>
+            </section>
+            <article class="col-3 d-none d-md-block"></article>
+        </div>
+    </div>
+{% endblock %}

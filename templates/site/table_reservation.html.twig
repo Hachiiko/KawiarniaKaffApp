@@ -1,0 +1,34 @@
+{% extends 'site/_layout/master.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid default-form-container">
+        <div class="row border-top-brown">
+            <section class="col-12 col-md-4 text-center p-lg-5 m-auto">
+                <h3 class="p-3">Zarezerwuj stolik</h3>
+                <form method="post" _lpchecked="1">
+                    <div class="form-group mt-5">
+                        <label for="Inputday">Dzień</label>
+                        <select class="form-control" id="day" aria-describedby="dayHelp" placeholder=""></select>
+                    </div>
+                    <div class="form-group mt-5">
+                        <label for="Inputhour">Godzina</label>
+                        <select class="form-control" id="hour" aria-describedby="hourHelp" placeholder=""></select>
+                    </div>
+                    <div class="form-group mt-5">
+                        <label for="Inputname">Imię</label>
+                        <input type="text" class="form-control" id="name" aria-describedby="nameHelp" placeholder="Twoje imię">
+                    </div>
+                    <div class="form-group mt-5">
+                        <label for="Inputsurname">Nazwisko</label>
+                        <input type="text" class="form-control" id="surname" aria-describedby="surnameHelp" placeholder="Twoje nazwisko">
+                    </div>
+                    <div class="form-group mt-5">
+                        <label for="NumberPhoneArea">Numer telefonu</label>
+                        <input type="tel" class="form-control" id="phonenumber" aria-describedby="numberHelp" placeholder="123123123">
+                    </div>
+                    <a href="" class="btn btn-primary">Zarezerwuj stolik</a>
+                </form>
+            </section>
+        </div>
+    </div>
+{% endblock %}

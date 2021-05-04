@@ -1,0 +1,5 @@
+danaki_doctrine_enum_type:
+  types:
+    order_status: App\Enum\OrderStatusEnum
+    table_reservation_status: App\Enum\TableReservationStatusEnum
+    cart_status: App\Enum\CartStatusEnum
