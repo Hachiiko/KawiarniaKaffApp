@@ -24,7 +24,7 @@
                             <figcaption>
                                 <p>{{ product.name }}</p>
                                 <p class="second-row">
-                                    {% if product.variants|filter(variant => variant.name is not empty)|length %}
+                                    {% if product.variants|filter(variant => variant.name|trim is not empty)|length %}
                                         <span>
                                             {% for product_variant in product.variants %}
                                                 {{ product_variant.name }}
