@@ -14,7 +14,7 @@ class ProductVariant
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -35,11 +35,6 @@ class ProductVariant
      * @ORM\ManyToOne(targetEntity=Product::class, inversedBy="variants")
      */
     private Product $product;
-
-    public function __construct()
-    {
-        $this->id = null;
-    }
 
     public function getId(): ?int
     {

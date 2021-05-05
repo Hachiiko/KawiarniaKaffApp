@@ -18,7 +18,7 @@ class Cart
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\ManyToOne(targetEntity=User::class, inversedBy="carts")

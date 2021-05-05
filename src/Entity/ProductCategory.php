@@ -15,7 +15,7 @@ class ProductCategory
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
-    private ?int $id;
+    private ?int $id = null;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -26,11 +26,6 @@ class ProductCategory
      * @ORM\OneToMany(targetEntity=Product::class, mappedBy="category")
      */
     private Collection $products;
-
-    public function __construct()
-    {
-        $this->id = null;
-    }
 
     public function __toString(): string
     {

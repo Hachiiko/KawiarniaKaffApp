@@ -35,7 +35,7 @@ class ProductFixtures extends Fixture
     private function getProductsData(): array
     {
         $categories = [
-            'coffee' => (function () {
+            'Kawa' => (function () {
                 $category = new ProductCategory();
                 $category->setName('Kawa');
 
@@ -58,100 +58,232 @@ class ProductFixtures extends Fixture
         return [
             [
                 'name' => 'Kawa czarna klasyczna',
-                'category' => $categories['coffee'],
+                'category' => $categories['Kawa'],
                 'variants' => [
                     [
                         'name' => 's',
                         'price' => 700,
-                    ],
-                    [
+                    ], [
                         'name' => 'm',
                         'price' => 900,
-                    ],
-                    [
+                    ], [
                         'name' => 'l',
                         'price' => 1100,
                     ],
                 ],
-            ],
-            [
+            ], [
                 'name' => 'Kawa biała klasyczna',
-                'category' => $categories['coffee'],
+                'category' => $categories['Kawa'],
                 'variants' => [
                     [
                         'name' => 's',
                         'price' => 700,
-                    ],
-                    [
+                    ], [
                         'name' => 'm',
                         'price' => 900,
-                    ],
-                    [
+                    ], [
                         'name' => 'l',
                         'price' => 1100,
                     ],
                 ],
-            ],
-            [
+            ], [
                 'name' => 'Espresso',
-                'category' => $categories['coffee'],
+                'category' => $categories['Kawa'],
                 'variants' => [
                     [
                         'name' => '50ml',
                         'price' => 700,
                     ],
                 ],
-            ],
-            [
+            ], [
                 'name' => 'Flat white',
-                'category' => $categories['coffee'],
+                'category' => $categories['Kawa'],
                 'variants' => [
                     [
                         'name' => '300ml',
                         'price' => 1000,
                     ],
                 ],
-            ],
-            [
+            ], [
                 'name' => 'Cappuccino',
-                'category' => $categories['coffee'],
+                'category' => $categories['Kawa'],
                 'variants' => [
                     [
                         'name' => 'm',
                         'price' => 1000,
-                    ],
-                    [
+                    ], [
                         'name' => 'l',
                         'price' => 1200,
                     ],
                 ],
-            ],
-            [
+            ], [
                 'name' => 'Drip',
-                'category' => $categories['coffee'],
+                'category' => $categories['Kawa'],
                 'variants' => [
                     [
                         'name' => '500ml',
                         'price' => 1500
                     ],
                 ],
-            ],
-            [
+            ], [
                 'name' => 'Aeropress',
-                'category' => $categories['coffee'],
+                'category' => $categories['Kawa'],
                 'variants' => [
                     [
                         'name' => '350ml',
                         'price' => 1200,
                     ],
                 ],
-            ],
-            [
+            ], [
                 'name' => 'Szybki przelew',
-                'category' => $categories['coffee'],
+                'category' => $categories['Kawa'],
                 'variants' => [
                     [
                         'name' => '400ml',
+                        'price' => 1100,
+                    ]
+                ],
+            ], [
+                'name' => 'Herbata zimowa',
+                'category' => $categories['Herbata'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1100,
+                    ]
+                ],
+            ], [
+                'name' => 'Herbata imbirowa',
+                'category' => $categories['Herbata'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1100,
+                    ]
+                ],
+            ], [
+                'name' => 'Earl Grey',
+                'category' => $categories['Herbata'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 700,
+                    ]
+                ],
+            ], [
+                'name' => 'Herbata malinowa',
+                'category' => $categories['Herbata'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1100,
+                    ]
+                ],
+            ], [
+                'name' => 'Zielona Matcha',
+                'category' => $categories['Herbata'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1300,
+                    ]
+                ],
+            ], [
+                'name' => 'Owoce leśne',
+                'category' => $categories['Herbata'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1100,
+                    ]
+                ],
+            ], [
+                'name' => 'Zielona jaśminowa',
+                'category' => $categories['Herbata'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 900,
+                    ]
+                ],
+            ], [
+                'name' => 'Zielona lawendowa',
+                'category' => $categories['Herbata'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 800,
+                    ]
+                ],
+            ], [
+                'name' => 'Sernik domowy',
+                'category' => $categories['Desery'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1000,
+                    ]
+                ],
+            ], [
+                'name' => 'Szarlotka',
+                'category' => $categories['Desery'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1200,
+                    ]
+                ],
+            ], [
+                'name' => 'Sernik z malinami',
+                'category' => $categories['Desery'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1100,
+                    ]
+                ],
+            ], [
+                'name' => 'Brownie',
+                'category' => $categories['Desery'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1100,
+                    ]
+                ],
+            ], [
+                'name' => 'Sernik lawendowy',
+                'category' => $categories['Desery'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1300,
+                    ]
+                ],
+            ], [
+                'name' => 'Sernik dyniowy',
+                'category' => $categories['Desery'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1300,
+                    ]
+                ],
+            ], [
+                'name' => 'Tarta Oreo',
+                'category' => $categories['Desery'],
+                'variants' => [
+                    [
+                        'name' => '',
+                        'price' => 1300,
+                    ]
+                ],
+            ], [
+                'name' => 'Tiramisu',
+                'category' => $categories['Desery'],
+                'variants' => [
+                    [
+                        'name' => '',
                         'price' => 1100,
                     ]
                 ],
