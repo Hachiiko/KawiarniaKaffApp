@@ -19,7 +19,7 @@ class ProductVariant
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
-    private ?string $name;
+    private ?string $name = null;
 
     /**
      * @ORM\Column(type="integer")
