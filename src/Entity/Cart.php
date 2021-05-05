@@ -73,7 +73,7 @@ class Cart
 
     public function getCartProductVariants(): CartProductVariantCollection
     {
-        return $this->cartProductVariants;
+        return new CartProductVariantCollection($this->cartProductVariants->toArray());
     }
 
     public function addCartProductVariant(CartProductVariant $cartProductVariant): void

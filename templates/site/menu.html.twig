@@ -20,14 +20,18 @@
                 <div class="col menu-list">
                     {% for product in product_category.products %}
                         <figure>
-                            <img src="/uploads/{{ product.image }}" alt="Homemade cheesecake" />
+                            <img src="/uploads/{{ product.image }}" alt="{{ product.name }}" />
                             <figcaption>
                                 <p>{{ product.name }}</p>
                                 <p class="second-row">
                                     {% if product.variants|filter(variant => variant.name|trim is not empty)|length %}
                                         <span>
                                             {% for product_variant in product.variants %}
-                                                {{ product_variant.name }}
+                                                {% if product_variant.name|trim is not empty %}
+                                                    {{ product_variant.name }}
+                                                {% else %}
+                                                    -
+                                                {% endif %}
 
                                                 {% if not loop.last %}
                                                     /
@@ -62,7 +66,7 @@
                 {% if loop.last %}
                     <div class="row menu-footer">
                         <p>Jeśli posiadasz konto na naszej stronie, możesz złożyć zamówienie onlinne i odebrać je w wybranej przez siebie godzinie!</p>
-                        <a href="#" class="btn btn-primary">ZŁÓŻ ZAMÓWIENIE! :)</a>
+                        <a href="{{ path('site_order_create') }}" class="btn btn-primary">ZŁÓŻ ZAMÓWIENIE! :)</a>
                     </div>
                 {% endif %}
             </section>

@@ -107,7 +107,7 @@ class CartManager
         foreach ($cart->getCartProductVariants() as $cartProductVariant) {
             $orderProduct = $this->orderProductFactory->create(
                 order: $order,
-                productVariant: $cartProductVariant->getVariant(),
+                productVariant: $cartProductVariant->getProductVariant(),
                 quantity: $cartProductVariant->getQuantity()
             );
 

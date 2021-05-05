@@ -51,6 +51,7 @@ class User implements UserInterface
 
     /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="owner")
+     * @ORM\OrderBy({"createdAt"="DESC"})
      */
     private $orders;
 

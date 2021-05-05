@@ -1,0 +1,62 @@
+{% extends 'site/_layout/master.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid default-form-container cart-container">
+        <div class="row border-top-brown">
+            {% if cart.cartProductVariants.empty %}
+                <div class="col-12 header-container">
+                    <h2>Twój koszyk jest pusty!</h2>
+                </div>
+
+                <div class="col-12">
+                    <a href="{{ path('site_menu') }}" class="btn btn-primary">ZOBACZ MENU</a>
+                </div>
+            {% else %}
+                <div class="col-12 header-container">
+                    <h2>Podsumowanie zamówienia</h2>
+                </div>
+                {{ form_start(form, { method: 'POST' }) }}
+                    <div class="row">
+                        <section class="col-6 col-md-4 text-center p-lg-5 m-auto">
+                            <h3>Wybrane produkty</h3>
+                            <div class="cart-items">
+                                <p class="cart-header fw-bold"><span>Produkty:</span> <span>Cena:</span></p>
+                                {% for cartProductVariant in cart.cartProductVariants %}
+                                    <p>
+                                        <span>
+                                            {{ cartProductVariant.quantity }}x {{ cartProductVariant.productVariant.product.name }}
+
+                                            {% if cartProductVariant.productVariant.name %}
+                                                ({{ cartProductVariant.productVariant.name }})
+                                            {% endif %}
+                                        </span>
+                                        <span>
+                                            {{ (cartProductVariant.productVariant.price / 100)|number_format(2, ',') }} zł
+                                        </span>
+                                {% endfor %}
+                                <p class="total fw-bold"><span>Razem:</span> <span>{{ (cart.cartProductVariants.priceSum / 100)|number_format(2, ',') }} zł</span></p>
+                            </div>
+                        </section>
+                        <article class="col-6 p-lg-5 m-auto">
+                                <div class="form-group mt-5">
+                                    {{ form_label(form.firstName) }}
+                                    {{ form_widget(form.firstName, { attr: { class: 'form-control' } }) }}
+                                </div>
+                                <div class="form-group mt-5">
+                                    {{ form_label(form.lastName) }}
+                                    {{ form_widget(form.lastName, { attr: { class: 'form-control' } }) }}
+                                </div>
+                                <div class="form-group mt-5">
+                                    {{ form_label(form.phone) }}
+                                    {{ form_widget(form.phone, { attr: { class: 'form-control' } }) }}
+                                </div>
+                        </article>
+                        <div class="col-12">
+                            <input type="submit" class="btn btn-primary" value="ZŁÓŻ ZAMÓWIENIE! :)">
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}

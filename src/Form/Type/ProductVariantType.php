@@ -26,7 +26,7 @@ class ProductVariantType extends AbstractType
             ->add('price', MoneyType::class, [
                 'label' => 'Cena',
                 'currency' => 'PLN',
-                'divisor' => 100
+                'divisor' => 100,
             ]);
     }
 

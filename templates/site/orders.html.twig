@@ -1,0 +1,35 @@
+{% extends 'site/_layout/master.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid">
+        <div class="row contact-row-bg border-top-brown">
+            <article class="col-3 d-none d-md-block"></article>
+            <section class="col-12 col-md-6 text-center p-lg-5">
+                <h3 class="p-3">Historia zamówień</h3>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th scope="col">#</th>
+                            <th scope="col">Data</th>
+                            <th scope="col">Kod odbioru</th>
+                            <th scope="col">Status</th>
+                            <th scope="col">Wartość zamówienia</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for order in orders %}
+                            <tr>
+                                <th scope="row">{{ loop.length - loop.index0 }}</th>
+                                <td>{{ order.createdAt|date('d.m.Y H:i') }}</td>
+                                <td>{{ order.token }}</td>
+                                <td>{{ order.status.label }}</td>
+                                <td>{{ (order.priceTotal / 100)|number_format(2, ',') }} zł</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </section>
+            <article class="col-3 d-none d-md-block"></article>
+        </div>
+    </div>
+{% endblock %}

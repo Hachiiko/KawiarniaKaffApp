@@ -14,15 +14,16 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
+        site:
             anonymous: true
             lazy: true
             provider: app_user_provider
             logout:
-                path: admin_logout
+                path: site_logout
             guard:
                 authenticators:
-                    - App\Security\LoginFormAuthenticator
+                    - App\Security\Authenticator\SiteLoginFormAuthenticator
+            entry_point: App\Security\EntryPoint\SiteAuthenticationEntryPoint
         admin:
             pattern: ^/(admin)
             anonymous: true
@@ -32,7 +33,7 @@ security:
                 path: admin_logout
             guard:
                 authenticators:
-                    - App\Security\LoginFormAuthenticator
+                    - App\Security\Authenticator\AdminLoginFormAuthenticator
 
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used

@@ -11,7 +11,8 @@ use App\Service\CartManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 class OrderController extends AbstractController
 {
@@ -22,6 +23,31 @@ class OrderController extends AbstractController
         $this->cartManager = $cartManager;
     }
 
+    /**
+     * @Route("/moje-konto/historia-zamowien", name="site_order_history")
+     *
+     * @return Response
+     */
+    public function history(): Response
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            throw new AuthenticationException('Zaloguj się, wyświetlić historię swoich zamówień!');
+        }
+
+        return $this->render('site/orders.html.twig', [
+            'orders' => $user->getOrders(),
+        ]);
+    }
+
+    /**
+     * @Route("/podsumowanie-koszyka", name="site_order_create", methods={"GET", "POST"})
+     *
+     * @param  Request $request
+     *
+     * @return Response
+     */
     public function create(Request $request): Response
     {
         $form = $this->createForm(OrderDetailsType::class, new OrderDetailsData);
@@ -30,15 +56,15 @@ class OrderController extends AbstractController
         $user = $this->getUser();
 
         if (!$user instanceof User) {
-            throw new AccessDeniedHttpException();
+            throw new AuthenticationException('Zaloguj się, aby złożyć zamówienie!');
         }
+
+        $cart = $this->cartManager->get($user);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $data = $form->getData();
 
             /** @var OrderDetailsData $data */
-
-            $cart = $this->cartManager->get($user);
 
             try {
                 $order = $this->cartManager->resolve(
@@ -48,13 +74,13 @@ class OrderController extends AbstractController
                     phone: $data->phone,
                 );
             } catch (EmptyCartException) {
-                $this->addFlash('success', 'Nie można złożyć zamówienia z pustego koszyka.');
+                $this->addFlash('warning', 'Nie można złożyć zamówienia z pustego koszyka.');
 
                 return $this->render('', [
                     'form' => $form->createView(),
                 ]);
             } catch (InsufficientStockException $exception) {
-                $this->addFlash('success', 'Brak dostępności części produktów zawartych w koszyku.');
+                $this->addFlash('warning', 'Brak dostępności części produktów zawartych w koszyku.');
 
                 return $this->render('', [
                     'form' => $form->createView(),
@@ -68,11 +94,12 @@ class OrderController extends AbstractController
 
             $this->addFlash('success', 'Pomyślnie złożono zamówienie.');
 
-            return $this->redirectToRoute('homepage');
+            return $this->redirectToRoute('site_homepage');
         }
 
-        return $this->render('', [
+        return $this->render('site/cart.html.twig', [
             'form' => $form->createView(),
+            'cart' => $cart,
         ]);
     }
 }
