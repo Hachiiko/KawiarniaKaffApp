@@ -24,15 +24,18 @@
                             <figcaption>
                                 <p>{{ product.name }}</p>
                                 <p class="second-row">
-                                    <span>
-                                        {% for product_variant in product.variants %}
-                                            {{ product_variant.name }}
+                                    {% if product.variants|filter(variant => variant.name is not empty)|length %}
+                                        <span>
+                                            {% for product_variant in product.variants %}
+                                                {{ product_variant.name }}
 
-                                            {% if not loop.last %}
-                                                /
-                                            {% endif %}
-                                        {% endfor %}
-                                    </span>
+                                                {% if not loop.last %}
+                                                    /
+                                                {% endif %}
+                                            {% endfor %}
+                                        </span>
+                                    {% endif %}
+
                                     <span>
                                         {% for product_variant in product.variants %}
                                             {{ (product_variant.price / 100)|number_format(2, ',') }} zł
