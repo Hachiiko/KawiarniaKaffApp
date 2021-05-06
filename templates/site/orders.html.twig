@@ -17,15 +17,21 @@
                         </tr>
                     </thead>
                     <tbody>
-                        {% for order in orders %}
+                        {% if orders is empty %}
                             <tr>
-                                <th scope="row">{{ loop.length - loop.index0 }}</th>
-                                <td>{{ order.createdAt|date('d.m.Y H:i') }}</td>
-                                <td>{{ order.token }}</td>
-                                <td>{{ order.status.label }}</td>
-                                <td>{{ (order.priceTotal / 100)|number_format(2, ',') }} zł</td>
+                                <th colspan="5">Brak zamówień!</th>
                             </tr>
-                        {% endfor %}
+                        {% else %}
+                            {% for order in orders %}
+                                <tr>
+                                    <th scope="row">{{ loop.length - loop.index0 }}</th>
+                                    <td>{{ order.createdAt|date('d.m.Y H:i') }}</td>
+                                    <td>{{ order.token }}</td>
+                                    <td>{{ order.status.label }}</td>
+                                    <td>{{ (order.priceTotal / 100)|number_format(2, ',') }} zł</td>
+                                </tr>
+                            {% endfor %}
+                        {% endif %}
                     </tbody>
                 </table>
             </section>

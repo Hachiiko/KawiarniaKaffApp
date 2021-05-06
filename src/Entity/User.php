@@ -35,6 +35,21 @@ class User implements UserInterface
     private string $username;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $firstName = null;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $lastName = null;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private ?string $phone = null;
+
+    /**
      * @ORM\Column(type="json")
      */
     private array $roles = [];
@@ -95,6 +110,36 @@ class User implements UserInterface
     public function setUsername(string $username): void
     {
         $this->username = $username;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(?string $firstName): void
+    {
+        $this->firstName = $firstName;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(?string $lastName): void
+    {
+        $this->lastName = $lastName;
+    }
+
+    public function getPhone(): ?string
+    {
+        return $this->phone;
+    }
+
+    public function setPhone(?string $phone): void
+    {
+        $this->phone = $phone;
     }
 
     public function getRoles(): array

@@ -42,7 +42,7 @@ class OrderController extends AbstractController
     }
 
     /**
-     * @Route("/podsumowanie-koszyka", name="site_order_create", methods={"GET", "POST"})
+     * @Route("/koszyk", name="site_order_create", methods={"GET", "POST"})
      *
      * @param  Request $request
      *
