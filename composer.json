@@ -9,6 +9,7 @@
         "ext-iconv": "*",
         "composer/package-versions-deprecated": "1.11.99.1",
         "danaki/doctrine-enum-type-bundle": "^0.2.2",
+        "doctrine/annotations": "^1.12",
         "doctrine/doctrine-bundle": "^2.2",
         "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/orm": "^2.8",
@@ -26,6 +27,8 @@
         "symfony/requirements-checker": "^2.0",
         "symfony/security-bundle": "5.2.*",
         "symfony/twig-bundle": "^5.2",
+        "symfony/validator": "5.2.*",
+        "symfony/var-dumper": "5.2.*",
         "symfony/yaml": "5.2.*"
     },
     "config": {
