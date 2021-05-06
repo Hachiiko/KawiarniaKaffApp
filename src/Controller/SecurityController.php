@@ -73,12 +73,6 @@ class SecurityController extends AbstractController
         $form = $this->createForm(UserRegistrationType::class, new UserRegistrationData);
         $form->handleRequest($request);
 
-        if (!$form->isValid()) {
-            foreach ($form->getErrors(true) as $error) {
-                $this->addFlash('error', $error->getMessage());
-            }
-        }
-
         if ($form->isSubmitted() && $form->isValid()) {
             /** @var UserRegistrationData $data */
             $data = $form->getData();
@@ -103,6 +97,12 @@ class SecurityController extends AbstractController
             $this->addFlash('success', 'Pomyślnie utworzono konto.');
 
             return $this->redirectToRoute('site_homepage');
+        }
+
+        if ($form->isSubmitted() && !$form->isValid()) {
+            foreach ($form->getErrors(true) as $error) {
+                $this->addFlash('error', $error->getMessage());
+            }
         }
 
         return $this->render('site/register.html.twig', [
