@@ -100,9 +100,7 @@ class SecurityController extends AbstractController
         }
 
         if ($form->isSubmitted() && !$form->isValid()) {
-            foreach ($form->getErrors(true) as $error) {
-                $this->addFlash('error', $error->getMessage());
-            }
+            $this->addFlash('error', 'Niepoprawne dane formularza!');
         }
 
         return $this->render('site/register.html.twig', [

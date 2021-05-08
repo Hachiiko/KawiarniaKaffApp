@@ -21,6 +21,12 @@ class UserRegistrationType extends AbstractType
                 'label' => 'E-mail',
                 'attr' => [
                     'placeholder' => 'Twój e-mail',
+                    'maxlength' => 64,
+                ],
+                'constraints' => [
+                    new Constraints\Email(),
+                    new Constraints\NotBlank(),
+                    new Constraints\Length(min: 2, max: 64),
                 ],
             ])
             ->add('password', RepeatedType::class, [
@@ -31,12 +37,14 @@ class UserRegistrationType extends AbstractType
                     'label' => 'Hasło',
                     'attr' => [
                         'placeholder' => 'Twoje hasło',
+                        'maxlength' => 64,
                     ],
                 ],
                 'second_options' => [
                     'label' => 'Powtórz hasło',
                     'attr' => [
                         'placeholder' => 'Twoje hasło ponownie',
+                        'maxlength' => 64,
                     ],
                 ],
                 'constraints' => [
@@ -50,18 +58,33 @@ class UserRegistrationType extends AbstractType
                 'label' => 'Imię',
                 'attr' => [
                     'placeholder' => 'Twoje imię',
+                    'maxlength' => 64,
+                ],
+                'constraints' => [
+                    new Constraints\NotBlank(),
+                    new Constraints\Length(min: 2, max: 64),
                 ],
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'Nazwisko',
                 'attr' => [
                     'placeholder' => 'Twoje nazwisko',
+                    'maxlength' => 64,
+                ],
+                'constraints' => [
+                    new Constraints\NotBlank(),
+                    new Constraints\Length(min: 2, max: 64),
                 ],
             ])
             ->add('phone', TextType::class, [
                 'label' => 'Numer telefonu',
                 'attr' => [
                     'placeholder' => '123 456 789',
+                    'maxlength' => 16,
+                ],
+                'constraints' => [
+                    new Constraints\NotBlank(),
+                    new Constraints\Length(min: 4, max: 16),
                 ],
             ]);
     }
