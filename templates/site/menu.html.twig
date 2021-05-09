@@ -82,10 +82,6 @@
                     <script>
                         function addToCart(button) {
                             var formData = new FormData(button.parentElement.parentElement);
-
-                            formData.get('productVariantId')
-                            formData.get('quantity')
-
                             var xhr = new XMLHttpRequest();
 
                             xhr.open('POST', '/koszyk/dodaj-produkt', true);

@@ -9,6 +9,7 @@ use App\Exception\EmptyCartException;
 use App\Exception\InsufficientStockException;
 use App\Form\Data\OrderDetailsData;
 use App\Form\Type\OrderDetailsType;
+use App\Repository\CartProductVariantRepository;
 use App\Repository\ProductVariantRepository;
 use App\Service\CartManager;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,12 +22,10 @@ use Symfony\Component\Security\Core\Exception\AuthenticationException;
 class CartController extends AbstractController
 {
     private CartManager $cartManager;
-    private ProductVariantRepository $productVariantRepository;
 
-    public function __construct(CartManager $cartManager, ProductVariantRepository $productVariantRepository)
+    public function __construct(CartManager $cartManager)
     {
         $this->cartManager = $cartManager;
-        $this->productVariantRepository = $productVariantRepository;
     }
 
     /**
@@ -94,7 +93,7 @@ class CartController extends AbstractController
     /**
      * @Route("/koszyk/dodaj-produkt", name="site_cart_add_product", methods={"POST"})
      */
-    public function addProduct(Request $request): JsonResponse
+    public function addProduct(Request $request, ProductVariantRepository $productVariantRepository): JsonResponse
     {
         $user = $this->getUser();
 
@@ -113,7 +112,7 @@ class CartController extends AbstractController
             ], 400);
         }
 
-        $productVariant = $this->productVariantRepository->find($requestedProductVariantId);
+        $productVariant = $productVariantRepository->find($requestedProductVariantId);
 
         if (null === $productVariant) {
             return $this->json([
@@ -137,5 +136,40 @@ class CartController extends AbstractController
         return $this->json([
             'message' => 'Pomyślnie dodano produkt do koszyka.',
         ]);
+    }
+
+    /**
+     * @Route("/koszyk/usun-produkt", name="site_cart_remove_product", methods={"POST"})
+     */
+    public function removeProduct(Request $request, CartProductVariantRepository $cartProductVariantRepository): JsonResponse
+    {
+        $user = $this->getUser();
+
+        if (!$user instanceof User) {
+            return $this->json([
+                'message' => 'Wystąpił błąd autoryzacji. Zaloguj się ponownie.',
+            ], 401);
+        }
+
+        $requestedCartProductVariantId = (int) $request->get('cartProductVariantId');
+
+        $cartProductVariant = $cartProductVariantRepository->find($requestedCartProductVariantId);
+
+        if (null === $cartProductVariant) {
+            return $this->json([
+                'message' => 'Nie odnaleziono produktu, który próbujesz usunąć z koszyka.',
+            ], 400);
+        }
+
+        $cart = $this->cartManager->get($user);
+        $cart->removeCartProductVariant($cartProductVariant);
+
+        $entityManager = $this->getDoctrine()->getManager();
+        $entityManager->remove($cartProductVariant);
+        $entityManager->flush();
+
+        $this->addFlash('success', 'Pomyślnie usunięto produkt z koszyka.');
+
+        return $this->json([]);
     }
 }
