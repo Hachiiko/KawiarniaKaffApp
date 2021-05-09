@@ -37,7 +37,7 @@ class CartProductVariantCollection extends ArrayCollection
         /** @var CartProductVariant $cartProductVariant */
 
         foreach ($this as $cartProductVariant) {
-            $sum += $cartProductVariant->getProductVariant()->getPrice();
+            $sum += $cartProductVariant->getProductVariant()->getPrice() * $cartProductVariant->getQuantity();
         }
 
         return $sum;

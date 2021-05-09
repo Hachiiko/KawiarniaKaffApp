@@ -5,17 +5,16 @@ declare(strict_types=1);
 namespace App\Service;
 
 use App\Entity\Cart;
-use App\Entity\CartProductVariant;
 use App\Entity\Factory\CartFactory;
+use App\Entity\Factory\CartProductVariantFactory;
 use App\Entity\Factory\OrderFactory;
 use App\Entity\Factory\OrderProductFactory;
 use App\Entity\Order;
-use App\Entity\OrderProduct;
+use App\Entity\ProductVariant;
 use App\Entity\User;
 use App\Exception\EmptyCartException;
 use App\Exception\InsufficientStockException;
 use App\Repository\CartRepository;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ObjectRepository;
 
@@ -25,17 +24,20 @@ class CartManager
     private OrderFactory $orderFactory;
     private OrderProductFactory $orderProductFactory;
     private CartFactory $cartFactory;
+    private CartProductVariantFactory $cartProductVariantFactory;
 
     public function __construct(
         EntityManagerInterface $entityManager,
         OrderFactory $orderFactory,
         OrderProductFactory $orderProductFactory,
-        CartFactory $cartFactory
+        CartFactory $cartFactory,
+        CartProductVariantFactory $cartProductVariantFactory
     ) {
         $this->entityManager = $entityManager;
         $this->orderFactory = $orderFactory;
         $this->orderProductFactory = $orderProductFactory;
         $this->cartFactory = $cartFactory;
+        $this->cartProductVariantFactory = $cartProductVariantFactory;
     }
 
     /**
@@ -59,6 +61,24 @@ class CartManager
         }
 
         return $cart;
+    }
+
+    /**
+     * Add product variant to cart of given quantity.
+     *
+     * @param  Cart           $cart
+     * @param  ProductVariant $productVariant
+     * @param  int            $quantity
+     */
+    public function addProductVariant(Cart $cart, ProductVariant $productVariant, int $quantity): void
+    {
+        $cartProductVariant = $this->cartProductVariantFactory->create(
+            cart: $cart,
+            productVariant: $productVariant,
+            quantity: $quantity,
+        );
+
+        $cart->addCartProductVariant($cartProductVariant);
     }
 
     /**

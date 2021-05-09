@@ -50,23 +50,66 @@
                                         {% endfor %}
                                     </span>
                                 </p>
-                                <div class="counter number">
-                                    <span class="minus">-</span>
-                                    <input type="text" value="1"/>
-                                    <span class="plus">+</span>
-                                </div>
-                                <div class="btn-container">
-                                    <button class="btn-primary">Dodaj do koszyka</button>
-                                </div>
+                                {% if app.user %}
+                                    <form>
+                                        <div class="w-100 text-center mb-2">
+                                            {% if product.variants|length == 1 and product.variants[0].name|trim is empty %}
+                                                <select class="d-none" name="productVariantId">
+                                                    <option value="{{ product.variants[0].id }}" selected></option>
+                                                </select>
+                                            {% else %}
+                                                <select class="form-control w-25 m-auto" name="productVariantId">
+                                                    {% for product_variant in product.variants %}
+                                                        <option value="{{ product_variant.id }}">{{ product_variant.name ?: '-' }}</option>
+                                                    {% endfor %}
+                                                </select>
+                                            {% endif %}
+                                        </div>
+                                        <div class="counter number">
+                                            <span class="minus" onclick="this.nextElementSibling.value > 1 ? this.nextElementSibling.value-- : null">-</span>
+                                            <input type="number" min="1" max="10" value="1" name="quantity"/>
+                                            <span class="plus" onclick="this.previousElementSibling.value < 10 ? this.previousElementSibling.value++ : null">+</span>
+                                        </div>
+                                        <div class="btn-container">
+                                            <button type="button" class="btn-primary" onclick="addToCart(this)">Dodaj do koszyka</button>
+                                        </div>
+                                    </form>
+                                {% endif %}
                             </figcaption>
                         </figure>
                     {% endfor %}
+
+                    <script>
+                        function addToCart(button) {
+                            var formData = new FormData(button.parentElement.parentElement);
+
+                            formData.get('productVariantId')
+                            formData.get('quantity')
+
+                            var xhr = new XMLHttpRequest();
+
+                            xhr.open('POST', '/koszyk/dodaj-produkt', true);
+
+                            xhr.onreadystatechange = function() {
+                                if (xhr.readyState === 4) {
+                                    var response = JSON.parse(xhr.response);
+
+                                    swal({
+                                        text: response.message,
+                                        icon: xhr.status === 200 ? "success" : "error"
+                                    });
+                                }
+                            }
+
+                            xhr.send(formData);
+                        }
+                    </script>
                 </div>
 
                 {% if loop.last %}
                     <div class="row menu-footer">
                         <p>Jeśli posiadasz konto na naszej stronie, możesz złożyć zamówienie onlinne i odebrać je w wybranej przez siebie godzinie!</p>
-                        <a href="{{ path('site_order_create') }}" class="btn btn-primary">ZŁÓŻ ZAMÓWIENIE! :)</a>
+                        <a href="{{ path('site_cart_resolve') }}" class="btn btn-primary">ZŁÓŻ ZAMÓWIENIE! :)</a>
                     </div>
                 {% endif %}
             </section>

@@ -31,7 +31,7 @@
                                             {% endif %}
                                         </span>
                                         <span>
-                                            {{ (cartProductVariant.productVariant.price / 100)|number_format(2, ',') }} zł
+                                            {{ ((cartProductVariant.productVariant.price * cartProductVariant.quantity)/ 100)|number_format(2, ',') }} zł
                                         </span>
                                 {% endfor %}
                                 <p class="total fw-bold"><span>Razem:</span> <span>{{ (cart.cartProductVariants.priceSum / 100)|number_format(2, ',') }} zł</span></p>

@@ -32,7 +32,7 @@ class Cart
     private CartStatusEnum $status;
 
     /**
-     * @ORM\OneToMany(targetEntity=CartProductVariant::class, mappedBy="cart")
+     * @ORM\OneToMany(targetEntity=CartProductVariant::class, mappedBy="cart", cascade={"persist"})
      */
     private Collection $cartProductVariants;
 
