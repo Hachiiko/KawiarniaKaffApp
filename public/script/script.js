@@ -13,7 +13,7 @@ navbarText.addEventListener('hidden.bs.collapse', function () {
     }
 });
 
-document.addEventListener(DOMContentLoaded, ()=>{
+window.addEventListener(DOMContentLoaded, ()=>{
     const container = document.getElementById('scroll-to-container');
 
     if(container) container.scrollIntoView({block:'start', behavior:'smooth', inline:'nearest'});
