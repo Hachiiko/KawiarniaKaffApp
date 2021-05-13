@@ -12,3 +12,9 @@ navbarText.addEventListener('hidden.bs.collapse', function () {
         carouselCaptions[i].style.visibility = 'visible';
     }
 });
+
+document.addEventListener(DOMContentLoaded, ()=>{
+    const container = document.getElementById('scroll-to-container');
+
+    if(container) container.scrollIntoView({block:'start', behavior:'smooth', inline:'nearest'});
+})
