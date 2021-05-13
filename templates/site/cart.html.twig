@@ -1,0 +1,107 @@
+{% extends 'site/_layout/master.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid default-form-container cart-container" id="scroll-to-container">
+        <div class="row border-top-brown">
+            {% if cart.cartProductVariants.empty %}
+                <div class="col-12 header-container">
+                    <h2>Twój koszyk jest pusty!</h2>
+                </div>
+
+                <div class="col-12">
+                    <a href="{{ path('site_menu') }}" class="btn btn-primary">ZOBACZ MENU</a>
+                </div>
+            {% else %}
+                <div class="col-12 header-container">
+                    <h2>Podsumowanie zamówienia</h2>
+                </div>
+                {{ form_start(form, { method: 'POST' }) }}
+                    <div class="col-12">
+                        <div class="row">
+                            <section class="col-6 col-md-4 text-right p-lg-5 m-auto">
+                                <h3>Wybrane produkty</h3>
+                                <table>
+                                    <thead>
+                                        <tr>
+                                            <th></th>
+                                            <th>Produkt</th>
+                                            <th>Cena</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {% for cartProductVariant in cart.cartProductVariants %}
+                                            <tr>
+                                                <td>
+                                                    <div class="counter number d-inline">
+                                                        <span class="minus" data-cart-product-variant-id="{{ cartProductVariant.id }}" onclick="removeFromCart(this)">-</span>
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        {{ cartProductVariant.quantity }}x {{ cartProductVariant.productVariant.product.name }}
+
+                                                        {% if cartProductVariant.productVariant.name %}
+                                                            ({{ cartProductVariant.productVariant.name }})
+                                                        {% endif %}
+                                                    </span>
+                                                </td>
+                                                <td>
+                                                    <span>
+                                                        {{ ((cartProductVariant.productVariant.price * cartProductVariant.quantity)/ 100)|number_format(2, ',') }} zł
+                                                    </span>
+                                                </td>
+                                            </tr>
+                                        {% endfor %}
+                                    </tbody>
+                                    <tfoot>
+                                        <tr>
+                                            <th></th>
+                                            <th>Razem</th>
+                                            <th>{{ (cart.cartProductVariants.priceSum / 100)|number_format(2, ',') }} zł</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                            </section>
+                            <article class="col-6 p-lg-5 m-auto">
+                                <div class="form-group mt-5">
+                                    {{ form_label(form.firstName) }}
+                                    {{ form_widget(form.firstName, { attr: { class: 'form-control' } }) }}
+                                </div>
+                                <div class="form-group mt-5">
+                                    {{ form_label(form.lastName) }}
+                                    {{ form_widget(form.lastName, { attr: { class: 'form-control' } }) }}
+                                </div>
+                                <div class="form-group mt-5">
+                                    {{ form_label(form.phone) }}
+                                    {{ form_widget(form.phone, { attr: { class: 'form-control' } }) }}
+                                </div>
+                            </article>
+                            <div class="col-12">
+                                <input type="submit" class="btn btn-primary" value="ZŁÓŻ ZAMÓWIENIE! :)">
+                            </div>
+                        </div>
+                    </div>
+                {{ form_end(form) }}
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        function removeFromCart(button) {
+            var formData = new FormData();
+            formData.append('cartProductVariantId', button.dataset.cartProductVariantId);
+
+            var xhr = new XMLHttpRequest();
+
+            xhr.open('POST', '/koszyk/usun-produkt', true);
+
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === 4) {
+                    window.location.reload(true);
+                }
+            }
+
+            xhr.send(formData);
+        }
+    </script>
+{% endblock %}

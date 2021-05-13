@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-VS84BZZW2S"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-VS84BZZW2S');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/imgs/favicon.png">
+    <meta name="description"
+          content="Strona główna jedynej i niepowtarzalnej kawiarni speciality, która znajduje się w Zabrzu">
+    <meta name="keywords" content="kawa, kawiarnia, zabrze, desery, ciasta, coffee, herbata, kaff, homepage kawiarni">
+    <meta name="author" content="Patrycja Kępka">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+            crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/style/style.css" />
+    <title>Kawiarnia Kaff</title>
+</head>
+
+<body>
+    <header class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="position-relative header-container">
+                    <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <div class="carousel-item active hero1" data-bs-interval="5000">
+                                <div class="carousel-caption d-block">
+                                    <h1 class="text-lg-start text-center">Witamy w</h1>
+                                    <h2 class="subtitle text-lg-start text-center">Kawiarni Kaff</h2>
+                                </div>
+                            </div>
+                            <div class="carousel-item hero2" data-bs-interval="5000">
+                                <div class="carousel-caption d-block">
+                                    <h1 class="text-lg-start text-center">Zatrzymaj się</h1>
+                                    <h2 class="subtitle text-lg-start text-center">i rozkoszuj przepyszną kawą</h2>
+                                </div>
+                            </div>
+                            <div class="carousel-item hero3" data-bs-interval="5000">
+                                <div class="carousel-caption d-block">
+                                    <h1 class="text-lg-start text-center">Celebruj</h1>
+                                    <h2 class="subtitle text-lg-start text-center">tę jedyną i niepowtarzalną chwilę
+                                    </h2>
+                                </div>
+                            </div>
+
+                            <a class="carousel-control-prev" href="#carousel" role="button" data-bs-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#carousel" role="button" data-bs-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="visually-hidden">Next</span>
+                            </a>
+                        </div>
+                    </div>
+                    <nav class="navbar navbar-expand-lg position-absolute top-0 navbar-dark">
+                        <div class="container-fluid">
+                            <a class="navbar-brand" href="{{ url('site_homepage') }}"><img src="/imgs/favicon.png" alt="Logo" /></a>
+                            <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false"
+                                    aria-label="Toggle navigation">
+                                <span class="navbar-toggler-icon"></span>
+                            </button>
+                            <div class="collapse navbar-collapse" id="navbarText">
+                                <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                    <li class="nav-item">
+                                        <a href="{{ url('site_menu') }}">Nasze menu</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('site_work') }}">Pracuj w Kaff</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('site_table_reservation') }}">Zarezerwuj stolik</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('site_localisation') }}">Lokalizacja</a>
+                                    </li>
+                                    <li class="nav-item">
+                                        <a href="{{ url('site_contact') }}">Kontakt</a>
+                                    </li>
+                                    <li class="nav-item nest-parent">
+                                        {% if app.user %}
+                                            <a href="#">Moje konto</a>
+                                            <ul class="nested-item">
+                                                <li>
+                                                    <a href="{{ path('site_cart_resolve') }}">Koszyk</a>
+                                                </li>
+                                                <li>
+                                                    <a href="#">Rezerwacje</a>
+                                                </li>
+                                                <li>
+                                                    <a href="{{ url('site_order_history') }}">Zamówienia</a>
+                                                </li>
+                                                <li class="logout">
+                                                    <a href="{{ url('site_logout') }}">Wyloguj</a>
+                                                </li>
+                                            </ul>
+                                        {% else %}
+                                            <a href="{{ url('site_login') }}">Zaloguj</a>
+                                            <ul class="nested-item">
+                                                <li>
+                                                    <a href="{{ url('site_register') }}">Załóż konto</a>
+                                                </li>
+                                            </ul>
+                                        {% endif %}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% block content %}{% endblock %}
+
+    <footer class="container-fluid">
+        <div class="row">
+            <div class="col-lg-6 contact">
+                <h3>Kontakt</h3>
+                <ul>
+                    <li>
+                        <img class="contact-icon" src="/imgs/svg/phone.svg" alt="Phone" />
+                        <a href="tel:+48123123123">+48 123 123 123</a>
+                        <a href="tel:+48321321321">+48 321 321 321</a>
+                    </li>
+                    <li>
+                        <img class="contact-icon" src="/imgs/svg/envelope.svg" alt="Envelope" />
+                        <a href="mailto:patrycja.kepka@edu.uekat.pl">patrycja.kepka@edu.uekat.pl</a>
+                    </li>
+                    <li>
+                        <img class="contact-icon" src="/imgs/svg/map-marked.svg" alt="Map marked" />
+                        <a href="https://goo.gl/maps/PtaJjwPcCrXyZDir6">41-800 Zabrze, ul.3go Maja 11/11</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 follow">
+                <h3>Obserwuj nas na:</h3>
+                <span>
+                        <img src="/imgs/svg/facebook-square.svg" alt="Facebook icon" />
+                        <img src="/imgs/svg/instagram-square.svg" alt="Instagram icon" />
+                        <img src="/imgs/svg/twitter-square.svg" alt="Twitter icon" />
+                    </span>
+            </div>
+        </div>
+    </footer>
+    <script type="text/javascript" src="script/script.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+    <script>
+        {% for level, flashes in app.flashes %}
+            {% for flash_message in flashes %}
+                swal({
+                    text: "{{ flash_message }}",
+                    icon: "{{ level }}"
+                });
+            {% endfor %}
+        {% endfor %}
+    </script>
+</body>
+</html>

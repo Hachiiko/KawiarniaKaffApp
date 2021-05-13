@@ -1,0 +1,65 @@
+{% extends 'site/_layout/master.html.twig' %}
+
+{% block content %}
+    <div class="container-fluid default-form-container" id="scroll-to-container">
+        <div class="row border-top-brown">
+            <section class="col-12 col-md-4 text-center p-lg-5 m-auto">
+                <h3 class="p-3">Zarejestruj się!</h3>
+
+                {% set is_password_invalid = form.password.first.vars.errors|length > 0 %}
+
+                {{ form_start(form) }}
+                    <div class="form-group mt-5">
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email, { attr: { class: 'form-control' ~ (form_errors(form.email) ? ' is-invalid')} }) }}
+                    </div>
+                    <div class="invalid-feedback d-block mt-4">
+                        {{ form_errors(form.email) }}
+                    </div>
+                    <div class="form-group mt-5">
+                        {{ form_label(form.password.first) }}
+                        {{ form_widget(form.password.first, { attr: { class: 'form-control' ~ (form_errors(form.password.first) ? ' is-invalid') } }) }}
+                    </div>
+                    <div class="form-group mt-5">
+                        {{ form_label(form.password.second) }}
+                        {{ form_widget(form.password.second, { attr: { class: 'form-control' ~ (form_errors(form.password.first) ? ' is-invalid') } }) }}
+                    </div>
+                    <div class="invalid-feedback d-block mt-4">
+                        {{ form_errors(form.password.first) }}
+                    </div>
+                    <div class="form-group mt-5">
+                        {{ form_label(form.firstName) }}
+                        {{ form_widget(form.firstName, { attr: { class: 'form-control' ~ (form_errors(form.firstName) ? ' is-invalid') } }) }}
+                    </div>
+                    <div class="invalid-feedback d-block mt-4">
+                        <small>{{ form_errors(form.firstName) }}</small>
+                    </div>
+                    <div class="form-group mt-5">
+                        {{ form_label(form.lastName) }}
+                        {{ form_widget(form.lastName, { attr: { class: 'form-control' ~ (form_errors(form.lastName) ? ' is-invalid') } }) }}
+                    </div>
+                    <div class="invalid-feedback d-block mt-4">
+                        {{ form_errors(form.lastName) }}
+                    </div>
+                    <div class="form-group mt-5">
+                        {{ form_label(form.phone) }}
+                        {{ form_widget(form.phone, { attr: { class: 'form-control' ~ (form_errors(form.phone) ? ' is-invalid') } }) }}
+                    </div>
+                    <div class="invalid-feedback d-block mt-4">
+                        {{ form_errors(form.phone) }}
+                    </div>
+                    <div class="form-check mt-5 text-start">
+                        <p class="mt-5">
+                            <small class="form-text text-muted">{{ form_help(form.password) }}</small>
+                        </p>
+                        <label class="form-check-label" for="rodoCheckBox">
+                            <input type="checkbox" class="form-check-input" id="rodoCheckBox" required>
+                            <span><small>* Akceptuje regulamin serwisu, a także zapoznałem/łam się z polityką prywatności sklepu internetowego.</small></span>
+                        </label>
+                    </div>
+                    <input type="submit" class="btn btn-primary" value="Stwórz konto"/>
+                {{ form_end(form) }}
+            </section>
+        </div>
+    </div>
+{% endblock %}
