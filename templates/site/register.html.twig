@@ -6,60 +6,170 @@
             <section class="col-12 col-md-4 text-center p-lg-5 m-auto">
                 <h3 class="p-3">Zarejestruj się!</h3>
 
-                {% set is_password_invalid = form.password.first.vars.errors|length > 0 %}
-
                 {{ form_start(form) }}
                     <div class="form-group mt-5">
                         {{ form_label(form.email) }}
-                        {{ form_widget(form.email, { attr: { class: 'form-control' ~ (form_errors(form.email) ? ' is-invalid')} }) }}
+                        {{ form_widget(form.email, {
+                            attr: {
+                                class: 'form-control' ~ (form_errors(form.email) ? ' is-invalid'),
+                                'data-rule-required': 'true',
+                                'data-rule-email': 'true',
+                                'data-rule-maxlength': '64'
+                            }
+                        }) }}
                     </div>
                     <div class="invalid-feedback d-block mt-4">
                         {{ form_errors(form.email) }}
                     </div>
                     <div class="form-group mt-5">
                         {{ form_label(form.password.first) }}
-                        {{ form_widget(form.password.first, { attr: { class: 'form-control' ~ (form_errors(form.password.first) ? ' is-invalid') } }) }}
-                    </div>
-                    <div class="form-group mt-5">
-                        {{ form_label(form.password.second) }}
-                        {{ form_widget(form.password.second, { attr: { class: 'form-control' ~ (form_errors(form.password.first) ? ' is-invalid') } }) }}
+                        {{ form_widget(form.password.first, {
+                            attr: {
+                                class: 'form-control' ~ (form_errors(form.password.first) ? ' is-invalid'),
+                                'data-rule-required': 'true',
+                                'data-rule-password': 'true',
+                                'data-rule-maxlength': '64'
+                            }
+                        }) }}
                     </div>
                     <div class="invalid-feedback d-block mt-4">
                         {{ form_errors(form.password.first) }}
                     </div>
                     <div class="form-group mt-5">
+                        {{ form_label(form.password.second) }}
+                        {{ form_widget(form.password.second, {
+                            attr: {
+                                class: 'form-control' ~ (form_errors(form.password.first) ? ' is-invalid'),
+                                'data-rule-required': 'true',
+                                'data-rule-equalTo': '#' ~ form.password.first.vars.id
+                            }
+                        }) }}
+                    </div>
+                    <div class="invalid-feedback d-block mt-4">
+                        {{ form_errors(form.password.second) }}
+                    </div>
+                    <div class="form-group mt-5">
                         {{ form_label(form.firstName) }}
-                        {{ form_widget(form.firstName, { attr: { class: 'form-control' ~ (form_errors(form.firstName) ? ' is-invalid') } }) }}
+                        {{ form_widget(form.firstName, {
+                            attr: {
+                                class: 'form-control' ~ (form_errors(form.firstName) ? ' is-invalid'),
+                                'data-rule-required': 'true',
+                                'data-rule-maxlength': '64',
+                                'data-rule-minlength': '2'
+                            }
+                        }) }}
                     </div>
                     <div class="invalid-feedback d-block mt-4">
                         <small>{{ form_errors(form.firstName) }}</small>
                     </div>
                     <div class="form-group mt-5">
                         {{ form_label(form.lastName) }}
-                        {{ form_widget(form.lastName, { attr: { class: 'form-control' ~ (form_errors(form.lastName) ? ' is-invalid') } }) }}
+                        {{ form_widget(form.lastName, {
+                            attr: {
+                                class: 'form-control' ~ (form_errors(form.lastName) ? ' is-invalid'),
+                                'data-rule-required': 'true',
+                                'data-rule-maxlength': '64',
+                                'data-rule-minlength': '2'
+                            }
+                        }) }}
                     </div>
                     <div class="invalid-feedback d-block mt-4">
                         {{ form_errors(form.lastName) }}
                     </div>
                     <div class="form-group mt-5">
                         {{ form_label(form.phone) }}
-                        {{ form_widget(form.phone, { attr: { class: 'form-control' ~ (form_errors(form.phone) ? ' is-invalid') } }) }}
+                        {{ form_widget(form.phone, {
+                            attr: {
+                                class: 'form-control' ~ (form_errors(form.phone) ? ' is-invalid'),
+                                'data-rule-required': 'true',
+                                'data-rule-maxlength': '16',
+                                'data-rule-minlength': '4'
+                            }
+                        }) }}
                     </div>
                     <div class="invalid-feedback d-block mt-4">
                         {{ form_errors(form.phone) }}
                     </div>
                     <div class="form-check mt-5 text-start">
-                        <p class="mt-5">
-                            <small class="form-text text-muted">{{ form_help(form.password) }}</small>
-                        </p>
                         <label class="form-check-label" for="rodoCheckBox">
-                            <input type="checkbox" class="form-check-input" id="rodoCheckBox" required>
-                            <span><small>* Akceptuje regulamin serwisu, a także zapoznałem/łam się z polityką prywatności sklepu internetowego.</small></span>
+                            <input type="checkbox" class="form-check-input" name="rodo_checkbox" id="rodoCheckBox" data-rule-required="true">
+                            <span><small><strong>*</strong> Akceptuje regulamin serwisu, a także zapoznałem/łam się z polityką prywatności sklepu internetowego.</small></span>
                         </label>
+                        <div class="invalid-feedback text-center d-block mt-4"></div>
                     </div>
-                    <input type="submit" class="btn btn-primary" value="Stwórz konto"/>
+                    <input type="submit" class="btn btn-primary" value="Stwórz konto" />
                 {{ form_end(form) }}
             </section>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js" integrity="sha512-894YE6QWD5I59HgZOGReFYm4dnWc1Qt5NtvYSaNcOP+u1T9qYdvdihz0PPSiiqn/+/3e7Jo4EaG7TubfWGUrMQ==" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js" integrity="sha512-UdIMMlVx0HEynClOIFSyOrPggomfhBKJE28LKl8yR3ghkgugPnG6iLfRfHwushZl1MOPSY6TsuBDGPK2X4zYKg==" crossorigin="anonymous"></script>
+
+    <script>
+        $(document).ready(function () {
+            $.validator.addMethod("email", function(value) {
+                return /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/.test(value);
+            });
+
+            $.validator.addMethod("password", function(value) {
+                return /^(?=.*[a-z])(?=.*[A-Z])(?=.*[\x21-\x7E][^a-zA-Z])[\x21-\x7E]{8,}$/.test(value);
+            });
+
+            const form = $('form[name="{{ form.vars.full_name }}"]');
+
+            const fields = {
+                email: '{{ form.email.vars.full_name }}',
+                password: '{{ form.password.first.vars.full_name }}',
+                passwordConfirmation: '{{ form.password.second.vars.full_name }}',
+                firstName: '{{ form.firstName.vars.full_name }}',
+                lastName: '{{ form.lastName.vars.full_name }}',
+                phone: '{{ form.phone.vars.full_name }}',
+                rodoCheck: 'rodo_checkbox'
+            };
+
+            $(form).validate({
+                messages: {
+                    [fields.email]: {
+                        required: 'To pole nie może być puste.',
+                        email: 'Ta wartość nie jest prawidłowym adresem email.',
+                        maxlength: 'Podana wartość jest za długa.',
+                    },
+                    [fields.password]: {
+                        required: 'To pole nie może być puste.',
+                        password: 'Hasło musi składać sie z 8 znaków, w tym co najmniej jednej dużej litery, co najmniej jednej małej oraz co najmniej jednego znaku specjalnego lub liczby.',
+                        maxlength: 'Podana wartość jest za długa.',
+                    },
+                    [fields.passwordConfirmation]: 'Podane hasła muszą być takie same.',
+                    [fields.firstName]: {
+                        required: 'To pole nie może być puste.',
+                        maxlength: 'Podana wartość jest za długa.',
+                        minlength: 'Podana wartość jest za krótka.',
+                    },
+                    [fields.lastName]: {
+                        required: 'To pole nie może być puste.',
+                        maxlength: 'Podana wartość jest za długa.',
+                        minlength: 'Podana wartość jest za krótka.',
+                    },
+                    [fields.phone]: {
+                        required: 'To pole nie może być puste.',
+                        maxlength: 'Podana wartość jest za długa.',
+                        minlength: 'Podana wartość jest za krótka.',
+                    },
+                    [fields.rodoCheck]: {
+                        required: 'Ta zgoda jest wymagana.',
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    console.log(element)
+                    $(element).parent().next().html(error.html())
+                },
+                success: function (label, element) {
+                    $(element).parent().next().html(null)
+                },
+            });
+        });
+    </script>
 {% endblock %}

@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
+use App\Entity\User;
+use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineConstraints;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -27,12 +29,12 @@ class UserRegistrationType extends AbstractType
                     new Constraints\Email(),
                     new Constraints\NotBlank(),
                     new Constraints\Length(min: 2, max: 64),
+                    new DoctrineConstraints\UniqueEntity(fields: ['email'], entityClass: User::class),
                 ],
             ])
             ->add('password', RepeatedType::class, [
                 'type' => PasswordType::class,
                 'invalid_message' => 'Podane hasła muszą być takie same.',
-                'help' => 'Hasło musi składać sie z 8 znaków, w tym co najmniej jednej dużej litery, co najmniej jednej małej oraz co najmniej jednego znaku specjalnego lub liczby.',
                 'first_options'  => [
                     'label' => 'Hasło',
                     'attr' => [
@@ -51,7 +53,7 @@ class UserRegistrationType extends AbstractType
                     new Constraints\Regex(
                         pattern: '/^(?=.*[a-z])(?=.*[A-Z])(?=.*[\x21-\x7E][^a-zA-Z])[\x21-\x7E]{8,}$/',
                         message: 'Hasło musi składać sie z 8 znaków, w tym co najmniej jednej dużej litery, co najmniej jednej małej oraz co najmniej jednego znaku specjalnego lub liczby.',
-                    )
+                    ),
                 ],
             ])
             ->add('firstName', TextType::class, [

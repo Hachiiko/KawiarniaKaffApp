@@ -12,7 +12,8 @@
 
                     <div class="form-group mt-5">
                         <label for="email">E-mail</label>
-                        <input name="{{ username_parameter }}" type="email" class="form-control" id="email" placeholder="Twój mail" value="{{ last_username|default('') }}" required autofocus autocomplete="username">
+                        <input name="{{ username_parameter }}" type="email" class="form-control" id="email" placeholder="Twój mail"
+                               value="{{ last_username|default('') }}" required autofocus autocomplete="username">
                     </div>
                     <div class="form-group mt-5">
                         <label for="password">Hasło</label>
@@ -27,3 +28,4 @@
         </div>
     </div>
 {% endblock %}
+
