@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\Form\Type;
 
-use App\Entity\User;
-use Symfony\Bridge\Doctrine\Validator\Constraints as DoctrineConstraints;
+use App\Repository\UserRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
@@ -13,9 +12,17 @@ use Symfony\Component\Form\Extension\Core\Type\RepeatedType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 class UserRegistrationType extends AbstractType
 {
+    private UserRepository $userRepository;
+
+    public function __construct(UserRepository $userRepository)
+    {
+        $this->userRepository = $userRepository;
+    }
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -29,7 +36,15 @@ class UserRegistrationType extends AbstractType
                     new Constraints\Email(),
                     new Constraints\NotBlank(),
                     new Constraints\Length(min: 2, max: 64),
-                    new DoctrineConstraints\UniqueEntity(fields: ['email'], entityClass: User::class),
+                    new Constraints\Callback(function ($value, ExecutionContextInterface $context) {
+                        if (null === $this->userRepository->findOneByEmail($value)) {
+                            return;
+                        }
+
+                        $context->buildViolation('Podany adres email jest zajęty.')
+                            ->atPath('email')
+                            ->addViolation();
+                    })
                 ],
             ])
             ->add('password', RepeatedType::class, [
