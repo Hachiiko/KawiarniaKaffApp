@@ -31,7 +31,7 @@ class OrderController extends AbstractController
             throw new AuthenticationException('Zaloguj się, wyświetlić historię swoich zamówień!');
         }
 
-        return $this->render('site/orders.html.twig', [
+        return $this->render('site/account/orders.html.twig', [
             'orders' => $user->getOrders(),
         ]);
     }

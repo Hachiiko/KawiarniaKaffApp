@@ -62,18 +62,19 @@ class User implements UserInterface
     /**
      * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="owner", orphanRemoval=true)
      */
-    private $carts;
+    private Collection $carts;
 
     /**
      * @ORM\OneToMany(targetEntity=Order::class, mappedBy="owner")
      * @ORM\OrderBy({"createdAt"="DESC"})
      */
-    private $orders;
+    private Collection $orders;
 
     /**
      * @ORM\OneToMany(targetEntity=TableReservation::class, mappedBy="owner")
+     * @ORM\OrderBy({"dateFrom"="DESC"})
      */
-    private $tableReservations;
+    private Collection $tableReservations;
 
     public function __construct()
     {

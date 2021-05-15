@@ -20,7 +20,7 @@ class TableReservation
     private ?int $id = null;
 
     /**
-     * @ORM\ManyToOne(targetEntity=Table::class)
+     * @ORM\ManyToOne(targetEntity=Table::class, inversedBy="reservations")
      */
     private Table $table;
 

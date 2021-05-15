@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\TableRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -23,6 +25,16 @@ class Table
      */
     private string $name;
 
+    /**
+     * @ORM\OneToMany(targetEntity=TableReservation::class, mappedBy="table")
+     */
+    private Collection $reservations;
+
+    public function __construct()
+    {
+        $this->reservations = new ArrayCollection();
+    }
+
     public function getId(): ?int
     {
         return $this->id;
@@ -36,5 +48,10 @@ class Table
     public function setName(string $name): void
     {
         $this->name = $name;
+    }
+
+    public function getReservations(): Collection
+    {
+        return $this->reservations;
     }
 }
