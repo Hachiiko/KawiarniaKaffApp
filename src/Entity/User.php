@@ -60,6 +60,11 @@ class User implements UserInterface
     private string $password;
 
     /**
+     * @ORM\Column(type="string", nullable=true, unique=true)
+     */
+    private ?string $passwordResetToken;
+
+    /**
      * @ORM\OneToMany(targetEntity=Cart::class, mappedBy="owner", orphanRemoval=true)
      */
     private Collection $carts;
@@ -169,6 +174,16 @@ class User implements UserInterface
     public function setPassword(string $password): void
     {
         $this->password = $password;
+    }
+
+    public function getPasswordResetToken(): ?string
+    {
+        return $this->passwordResetToken;
+    }
+
+    public function setPasswordResetToken(?string $passwordResetToken): void
+    {
+        $this->passwordResetToken = $passwordResetToken;
     }
 
     public function getSalt(): ?string

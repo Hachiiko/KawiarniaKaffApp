@@ -30,6 +30,13 @@ services:
     user: root
     environment:
       DATABASE_URL: mysql://${DOCKER_MYSQL_USER:-application}:${DOCKER_MYSQL_PASSWORD:-123}@mysql/${DOCKER_MYSQL_DATABASE:-application}?serverVersion=5.7
+      MAILER_DSN: 'smtp://mailhog:${MAILHOG_SMTP_PORT:-1025}'
     volumes:
       - .:/application
       - ./etc/docker/php-fpm/php-ini-overrides.ini:/etc/php/8.0/fpm/conf.d/99-overrides.ini
+  mailhog:
+    image: mailhog/mailhog:latest
+    container_name: ${DOCKER_PROJECT_NAME}-mailhog
+    ports:
+      - "${MAILHOG_SMTP_PORT:-1025}:1025"
+      - "${MAILHOG_WEBUI_PORT:-8025}:8025"
