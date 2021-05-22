@@ -12,15 +12,15 @@
                     <a href="{{ path('site_menu') }}" class="btn btn-primary">ZOBACZ MENU</a>
                 </div>
             {% else %}
-                <div class="col-12 header-container">
+                <div class="col-12 header-container mx-0 mb-5 mb-lg-0">
                     <h2>Podsumowanie zamówienia</h2>
                 </div>
-                {{ form_start(form, { method: 'POST' }) }}
-                    <div class="col-12">
+                <div class="col-12">
+                    {{ form_start(form, { method: 'POST' }) }}
                         <div class="row">
-                            <section class="col-6 col-md-4 text-right p-lg-5 m-auto">
+                            <section class="col-12 col-md-6 text-center text-lg-right px-5 m-auto">
                                 <h3>Wybrane produkty</h3>
-                                <table>
+                                <table class="table table-borderless">
                                     <thead>
                                         <tr>
                                             <th></th>
@@ -47,7 +47,7 @@
                                                 </td>
                                                 <td>
                                                     <span>
-                                                        {{ ((cartProductVariant.productVariant.price * cartProductVariant.quantity)/ 100)|number_format(2, ',') }} zł
+                                                        {{ ((cartProductVariant.productVariant.price * cartProductVariant.quantity)/ 100)|number_format(2, ',') }} <span class="d-none d-lg-inline-block">zł</span>
                                                     </span>
                                                 </td>
                                             </tr>
@@ -57,12 +57,12 @@
                                         <tr>
                                             <th></th>
                                             <th>Razem</th>
-                                            <th>{{ (cart.cartProductVariants.priceSum / 100)|number_format(2, ',') }} zł</th>
+                                            <th>{{ (cart.cartProductVariants.priceSum / 100)|number_format(2, ',') }} <span class="d-none d-lg-inline-block">zł</span></th>
                                         </tr>
                                     </tfoot>
                                 </table>
                             </section>
-                            <article class="col-6 p-lg-5 m-auto">
+                            <article class="col-12 col-md-6 px-5 p-lg-5 m-auto">
                                 <div class="form-group mt-5">
                                     {{ form_label(form.firstName) }}
                                     {{ form_widget(form.firstName, {
@@ -107,11 +107,11 @@
                                 </div>
                             </article>
                             <div class="col-12">
-                                <input type="submit" class="btn btn-primary" value="ZŁÓŻ ZAMÓWIENIE! :)">
+                                <button type="submit" class="btn btn-primary">Złóż zamówienie</button>
                             </div>
                         </div>
-                    </div>
-                {{ form_end(form) }}
+                    {{ form_end(form) }}
+                </div>
             {% endif %}
         </div>
     </div>

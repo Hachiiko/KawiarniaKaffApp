@@ -89,7 +89,7 @@
                                     <li class="nav-item">
                                         <a href="{{ url('site_contact') }}">Kontakt</a>
                                     </li>
-                                    <li class="nav-item nest-parent">
+                                    <li class="nav-item nest-parent d-none d-lg-block">
                                         {% if app.user %}
                                             <a href="{{ path('site_account_edit') }}">Moje konto</a>
                                             <ul class="nested-item">
@@ -115,6 +115,34 @@
                                             </ul>
                                         {% endif %}
                                     </li>
+
+                                    <li class="d-block d-lg-none">
+                                        <hr/>
+                                    </li>
+                                    {% if app.user %}
+                                        <li class="d-block d-lg-none">
+                                            <a href="{{ path('site_account_edit') }}">Moje konto</a>
+                                        </li>
+                                        <li class="d-block d-lg-none">
+                                            <a href="{{ path('site_cart_resolve') }}">Koszyk</a>
+                                        </li>
+                                        <li class="d-block d-lg-none">
+                                            <a href="{{ path('site_table_reservation_history') }}">Rezerwacje</a>
+                                        </li>
+                                        <li class="d-block d-lg-none">
+                                            <a href="{{ url('site_order_history') }}">Zamówienia</a>
+                                        </li>
+                                        <li class="logout d-block d-lg-none">
+                                            <a href="{{ url('site_logout') }}">Wyloguj</a>
+                                        </li>
+                                    {% else %}
+                                        <li class="d-block d-lg-none">
+                                            <a href="{{ url('site_login') }}">Zaloguj</a>
+                                        </li>
+                                        <li class="d-block d-lg-none">
+                                            <a href="{{ url('site_register') }}">Załóż konto</a>
+                                        </li>
+                                    {% endif %}
                                 </ul>
                             </div>
                         </div>
