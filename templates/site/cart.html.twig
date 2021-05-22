@@ -65,15 +65,45 @@
                             <article class="col-6 p-lg-5 m-auto">
                                 <div class="form-group mt-5">
                                     {{ form_label(form.firstName) }}
-                                    {{ form_widget(form.firstName, { attr: { class: 'form-control' } }) }}
+                                    {{ form_widget(form.firstName, {
+                                        attr: {
+                                            class: 'form-control' ~ (form_errors(form.firstName) ? ' is-invalid'),
+                                            'data-rule-required': 'true',
+                                            'data-rule-maxlength': '64',
+                                            'data-rule-minlength': '2'
+                                        }
+                                    }) }}
+                                </div>
+                                <div class="invalid-feedback d-block mt-4">
+                                    {{ form_errors(form.firstName) }}
                                 </div>
                                 <div class="form-group mt-5">
                                     {{ form_label(form.lastName) }}
-                                    {{ form_widget(form.lastName, { attr: { class: 'form-control' } }) }}
+                                    {{ form_widget(form.lastName, {
+                                        attr: {
+                                            class: 'form-control' ~ (form_errors(form.lastName) ? ' is-invalid'),
+                                            'data-rule-required': 'true',
+                                            'data-rule-maxlength': '64',
+                                            'data-rule-minlength': '2'
+                                        }
+                                    }) }}
+                                </div>
+                                <div class="invalid-feedback d-block mt-4">
+                                    {{ form_errors(form.lastName) }}
                                 </div>
                                 <div class="form-group mt-5">
                                     {{ form_label(form.phone) }}
-                                    {{ form_widget(form.phone, { attr: { class: 'form-control' } }) }}
+                                    {{ form_widget(form.phone, {
+                                        attr: {
+                                            class: 'form-control' ~ (form_errors(form.phone) ? ' is-invalid'),
+                                            'data-rule-required': 'true',
+                                            'data-rule-maxlength': '16',
+                                            'data-rule-minlength': '4'
+                                        }
+                                    }) }}
+                                </div>
+                                <div class="invalid-feedback d-block mt-4">
+                                    {{ form_errors(form.phone) }}
                                 </div>
                             </article>
                             <div class="col-12">
@@ -85,6 +115,12 @@
             {% endif %}
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'site/_partials/jquery_validate.html.twig' %}
+
+    <script src="/script/jquery.mask.min.js"></script>
 
     <script>
         function removeFromCart(button) {
@@ -103,5 +139,45 @@
 
             xhr.send(formData);
         }
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            const form = $('form[name="{{ form.vars.full_name }}"]');
+
+            const fields = {
+                firstName: '{{ form.firstName.vars.full_name }}',
+                lastName: '{{ form.lastName.vars.full_name }}',
+                phone: '{{ form.phone.vars.full_name }}'
+            };
+
+            $('[name="{{ form.phone.vars.full_name }}"]').mask("999 999 999");
+
+            $(form).validate({
+                messages: {
+                    [fields.firstName]: {
+                        required: 'To pole nie może być puste.',
+                        maxlength: 'Podana wartość jest za długa.',
+                        minlength: 'Podana wartość jest za krótka.',
+                    },
+                    [fields.lastName]: {
+                        required: 'To pole nie może być puste.',
+                        maxlength: 'Podana wartość jest za długa.',
+                        minlength: 'Podana wartość jest za krótka.',
+                    },
+                    [fields.phone]: {
+                        required: 'To pole nie może być puste.',
+                        maxlength: 'Podana wartość jest za długa.',
+                        minlength: 'Podana wartość jest za krótka.',
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    $(element).parent().next().html(error.html())
+                },
+                success: function (label, element) {
+                    $(element).parent().next().html(null)
+                },
+            });
+        });
     </script>
 {% endblock %}

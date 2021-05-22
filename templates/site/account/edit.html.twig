@@ -66,6 +66,8 @@
 {% block javascripts %}
     {% include 'site/_partials/jquery_validate.html.twig' %}
 
+    <script src="/script/jquery.mask.min.js"></script>
+
     <script>
         $(document).ready(function () {
             const form = $('form[name="{{ form.vars.full_name }}"]');
@@ -75,6 +77,8 @@
                 lastName: '{{ form.lastName.vars.full_name }}',
                 phone: '{{ form.phone.vars.full_name }}'
             };
+
+            $('[name="{{ form.phone.vars.full_name }}"]').mask("999 999 999");
 
             $(form).validate({
                 messages: {

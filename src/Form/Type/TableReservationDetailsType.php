@@ -10,6 +10,7 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints;
 
 class TableReservationDetailsType extends AbstractType
 {
@@ -48,18 +49,33 @@ class TableReservationDetailsType extends AbstractType
                 'label' => 'Imię',
                 'attr' => [
                     'placeholder' => 'Twoje imię',
+                    'maxlength' => 64,
+                ],
+                'constraints' => [
+                    new Constraints\NotBlank(),
+                    new Constraints\Length(min: 2, max: 64),
                 ],
             ])
             ->add('lastName', TextType::class, [
                 'label' => 'Nazwisko',
                 'attr' => [
                     'placeholder' => 'Twoje nazwisko',
+                    'maxlength' => 64,
+                ],
+                'constraints' => [
+                    new Constraints\NotBlank(),
+                    new Constraints\Length(min: 2, max: 64),
                 ],
             ])
             ->add('phone', TextType::class, [
                 'label' => 'Numer telefonu',
                 'attr' => [
                     'placeholder' => '123 456 789',
+                    'maxlength' => 16,
+                ],
+                'constraints' => [
+                    new Constraints\NotBlank(),
+                    new Constraints\Length(min: 4, max: 16),
                 ],
             ]);
     }

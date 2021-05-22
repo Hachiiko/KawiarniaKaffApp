@@ -23,9 +23,11 @@ class TableReservationManager
     public function getAvailableHours(): array
     {
         $today = new DateTime();
-        $tommorow = (clone $today)->modify('+1 day');
 
-        $days = [$today, $tommorow];
+        $days = [
+            (clone $today)->modify('+1 day'),
+            (clone $today)->modify('+2 days'),
+        ];
 
         $availableHoursTableMap = [];
 
