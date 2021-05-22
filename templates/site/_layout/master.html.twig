@@ -91,7 +91,7 @@
                                     </li>
                                     <li class="nav-item nest-parent">
                                         {% if app.user %}
-                                            <a href="#">Moje konto</a>
+                                            <a href="{{ path('site_account_edit') }}">Moje konto</a>
                                             <ul class="nested-item">
                                                 <li>
                                                     <a href="{{ path('site_cart_resolve') }}">Koszyk</a>

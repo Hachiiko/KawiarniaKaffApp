@@ -11,7 +11,7 @@
                         {{ form_label(form.email) }}
                         {{ form_widget(form.email, {
                             attr: {
-                                class: 'form-control' ~ (form_errors(form.email) ? ' is-invalid'),
+                                'class': 'form-control' ~ (form_errors(form.email) ? ' is-invalid'),
                                 'data-rule-required': 'true',
                                 'data-rule-email': 'true',
                                 'data-rule-maxlength': '64'
