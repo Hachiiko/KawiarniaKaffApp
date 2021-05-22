@@ -8,26 +8,88 @@
                 <h3 class="p-3">Skontaktuj się z nami!</h3>
                 <p>Jeśli masz jakieś pytania pytania dotyczące kawiarni lub chcesz podzielić się opinią z pobytu w
                     kawiarni, prosimy o kontakt.</p>
-                <form action="mailto:kontakt@kaff.pl" method="post" _lpchecked="1">
+
+                {{ form_start(form) }}
                     <div class="form-group mt-5">
-                        <label for="exampleInputEmail1">Twój adress E-mail</label>
-                        <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Enter email">
-                        <small id="emailHelp" class="form-text text-muted">Twoje dane nie zostaną nigdy opublikowane</small>
+                        {{ form_label(form.email) }}
+                        {{ form_widget(form.email, {
+                            attr: {
+                                'class': 'form-control' ~ (form_errors(form.email) ? ' is-invalid'),
+                                'data-rule-required': 'true',
+                                'data-rule-email': 'true',
+                                'data-rule-maxlength': '64'
+                            }
+                        }) }}
+                        <small class="form-text text-muted">
+                            {{ form.email.vars.help }}
+                        </small>
+                    </div>
+                    <div class="invalid-feedback d-block mt-4">
+                        {{ form_errors(form.email) }}
                     </div>
                     <div class="form-group mt-5">
-                        <label for="exampleFormControlTextarea1">Wpisz tutaj swoją wiadomość</label>
-                        <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+                        {{ form_label(form.content) }}
+                        {{ form_widget(form.content, {
+                            attr: {
+                                'class': 'form-control' ~ (form_errors(form.content) ? ' is-invalid'),
+                                'data-rule-required': 'true',
+                                'data-rule-minlength': '2'
+                            }
+                        }) }}
+                    </div>
+                    <div class="invalid-feedback d-block mt-4">
+                        {{ form_errors(form.content) }}
                     </div>
                     <div class="form-check mt-5 text-start">
                         <label class="form-check-label" for="exampleCheck1">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+                            <input type="checkbox" class="form-check-input" id="exampleCheck1" name="rodo_checkbox" data-rule-required="true">
                             Zgadzam się na przesłanie mojego zgłoszenia. Rodo&amp;etc.
                         </label>
+                        <div class="invalid-feedback d-block mt-4"></div>
                     </div>
-                    <button type="submit" class="btn btn-primary">Wyślij</button>
-                </form>
+                    <input type="submit" class="btn btn-primary" value="Wyślij" />
+                {{ form_end(form) }}
             </section>
             <article class="col-3 d-none d-md-block"></article>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {% include 'site/_partials/jquery_validate.html.twig' %}
+
+    <script>
+        $(document).ready(function () {
+            const form = $('form[name="{{ form.vars.full_name }}"]');
+
+            const fields = {
+                email: '{{ form.email.vars.full_name }}',
+                content: '{{ form.content.vars.full_name }}',
+                rodoCheck: 'rodo_checkbox'
+            };
+
+            $(form).validate({
+                messages: {
+                    [fields.email]: {
+                        required: 'To pole nie może być puste.',
+                        email: 'Ta wartość nie jest prawidłowym adresem email.',
+                        maxlength: 'Podana wartość jest za długa.',
+                    },
+                    [fields.content]: {
+                        required: 'To pole nie może być puste.',
+                        minlength: 'Podana wartość jest za krótka.',
+                    },
+                    [fields.rodoCheck]: {
+                        required: 'Ta zgoda jest wymagana.',
+                    }
+                },
+                errorPlacement: function (error, element) {
+                    $(element).parent().next().html(error.html())
+                },
+                success: function (label, element) {
+                    $(element).parent().next().html(null)
+                },
+            });
+        });
+    </script>
 {% endblock %}

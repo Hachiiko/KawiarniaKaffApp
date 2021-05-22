@@ -42,12 +42,4 @@ class StaticPageController extends AbstractController
     {
         return $this->render('site/localisation.html.twig');
     }
-
-    /**
-     * @Route("/kontakt", name="site_contact")
-     */
-    public function contact(): Response
-    {
-        return $this->render('site/contact.html.twig');
-    }
 }

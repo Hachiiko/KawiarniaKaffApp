@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     mailer.from: '%env(MAILER_FROM)%'
+    mailer.contact_recipent: '%env(MAILER_CONTACT_RECIPENT)%'
 
 services:
     # default configuration for services in *this* file
