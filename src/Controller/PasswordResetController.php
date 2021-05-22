@@ -93,7 +93,7 @@ class PasswordResetController extends AbstractController
     /**
      * @Route("/przypomnij-haslo/{token}", name="site_password_reset")
      */
-    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token)
+    public function reset(Request $request, UserPasswordEncoderInterface $passwordEncoder, string $token): Response
     {
         $user = $this->userRepository->findOneByPasswordResetToken($token);
 
