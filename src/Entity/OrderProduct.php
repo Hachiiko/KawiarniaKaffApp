@@ -29,7 +29,7 @@ class OrderProduct
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255)
+     * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $variantName;
 
@@ -73,7 +73,7 @@ class OrderProduct
         return $this->variantName;
     }
 
-    public function setVariantName(string $variantName): void
+    public function setVariantName(?string $variantName): void
     {
         $this->variantName = $variantName;
     }
